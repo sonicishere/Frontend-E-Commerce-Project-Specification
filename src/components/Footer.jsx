@@ -1,6 +1,4 @@
 import { Container } from 'react-bootstrap';
-import { FiHeart } from 'react-icons/fi';
-
 export default function Footer() {
     return (
         <footer className="app-footer">
