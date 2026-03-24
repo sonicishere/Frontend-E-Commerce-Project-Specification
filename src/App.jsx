@@ -22,15 +22,17 @@ export default function App() {
         <>
             <AppNavbar />
             <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<Products />} />
-                <Route path="/products/:id" element={<ProductDetail />} />
+                {/* Auth Routes (public) */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/carts" element={<Carts />} />
-                <Route path="/carts/:id" element={<CartDetail />} />
-                <Route path="/users" element={<Users />} />
-                <Route path="/users/:id" element={<UserDetail />} />
+
+                {/* Protected Routes - require login */}
+                <Route path="/" element={<ProtectedRoute><Products /></ProtectedRoute>} />
+                <Route path="/products/:id" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
+                <Route path="/carts" element={<ProtectedRoute><Carts /></ProtectedRoute>} />
+                <Route path="/carts/:id" element={<ProtectedRoute><CartDetail /></ProtectedRoute>} />
+                <Route path="/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
+                <Route path="/users/:id" element={<ProtectedRoute><UserDetail /></ProtectedRoute>} />
 
                 {/* Protected Dashboard Routes */}
                 <Route

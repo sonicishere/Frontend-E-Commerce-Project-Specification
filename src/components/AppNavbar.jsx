@@ -1,10 +1,12 @@
-import { Navbar, Nav, Container, Button, Dropdown, Image } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button, Dropdown, Image, Badge } from 'react-bootstrap';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import { FiShoppingCart, FiUsers, FiGrid, FiLogOut, FiLogIn, FiUserPlus } from 'react-icons/fi';
 
 export default function AppNavbar() {
     const { user, isAuthenticated, logout } = useAuth();
+    const { totalItems } = useCart();
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -25,8 +27,13 @@ export default function AppNavbar() {
                         <Nav.Link as={NavLink} to="/" end className="nav-item-link">
                             Products
                         </Nav.Link>
-                        <Nav.Link as={NavLink} to="/carts" className="nav-item-link">
-                            <FiShoppingCart className="me-1" /> Carts
+                        <Nav.Link as={NavLink} to="/carts" className="nav-item-link" style={{ position: 'relative' }}>
+                            <FiShoppingCart className="me-1" /> Cart
+                            {totalItems > 0 && (
+                                <Badge pill bg="danger" style={{ position: 'absolute', top: 2, right: 2, fontSize: '0.65rem', minWidth: 18 }}>
+                                    {totalItems}
+                                </Badge>
+                            )}
                         </Nav.Link>
                         <Nav.Link as={NavLink} to="/users" className="nav-item-link">
                             <FiUsers className="me-1" /> Users

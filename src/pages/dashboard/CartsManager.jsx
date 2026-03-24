@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Table, Button, Modal, Form, Spinner, Alert, Badge, Row, Col } from 'react-bootstrap';
 import { FiPlus, FiEdit2, FiTrash2, FiShoppingCart } from 'react-icons/fi';
+import { FaTimes } from 'react-icons/fa';
 import cartService from '../../services/cartService';
 import Pagination from '../../components/Pagination';
 

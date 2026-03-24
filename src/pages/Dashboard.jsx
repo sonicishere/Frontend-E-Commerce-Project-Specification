@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import { FiPackage, FiShoppingCart, FiUsers, FiDollarSign } from 'react-icons/fi';
+import { FaHandPeace, FaBoxOpen, FaShoppingCart, FaUserFriends } from 'react-icons/fa';
 import productService from '../services/productService';
 import cartService from '../services/cartService';
 import userService from '../services/userService';
@@ -41,7 +42,7 @@ export default function Dashboard() {
         <div>
             <div className="mb-4">
                 <h2 style={{ fontWeight: 800 }}>
-                    Welcome back, <span className="text-gradient">{user?.firstName || 'Admin'}</span> 👋
+                    Welcome back, <span className="text-gradient">{user?.firstName || 'Admin'}</span> <FaHandPeace className="ms-1" style={{ color: 'var(--warning)' }} />
                 </h2>
                 <p className="text-muted">Here's what's happening in your store</p>
             </div>
@@ -99,9 +100,9 @@ export default function Dashboard() {
                         <h5 style={{ fontWeight: 700 }}>Quick Actions</h5>
                         <p className="text-muted small">Manage your store resources from the sidebar</p>
                         <ul className="list-unstyled mt-3">
-                            <li className="mb-2">📦 <strong>Products</strong> — Add, edit, or remove products</li>
-                            <li className="mb-2">🛒 <strong>Carts</strong> — Manage customer shopping carts</li>
-                            <li className="mb-2">👥 <strong>Users</strong> — View and manage user accounts</li>
+                            <li className="mb-2"><FaBoxOpen className="me-2" style={{ color: 'var(--accent)' }} /><strong>Products</strong> — Add, edit, or remove products</li>
+                            <li className="mb-2"><FaShoppingCart className="me-2" style={{ color: 'var(--accent)' }} /><strong>Carts</strong> — Manage customer shopping carts</li>
+                            <li className="mb-2"><FaUserFriends className="me-2" style={{ color: 'var(--accent)' }} /><strong>Users</strong> — View and manage user accounts</li>
                         </ul>
                     </div>
                 </Col>

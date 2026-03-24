@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Row, Col, Badge, Spinner, Button, Image } from 'react-bootstrap';
-import { FiStar, FiArrowLeft, FiTag, FiTruck, FiShield, FiPackage, FiRefreshCw } from 'react-icons/fi';
+import { Container, Row, Col, Badge, Spinner, Button, Image, Alert } from 'react-bootstrap';
+import { FiStar, FiArrowLeft, FiTag, FiTruck, FiShield, FiPackage, FiRefreshCw, FiShoppingCart, FiCheck } from 'react-icons/fi';
+import { FaCheckCircle } from 'react-icons/fa';
 import productService from '../services/productService';
+import { useCart } from '../context/CartContext';
 
 export default function ProductDetail() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeImg, setActiveImg] = useState(0);
+    const [addedToCart, setAddedToCart] = useState(false);
+    const { addToCart, cartItems } = useCart();
 
     useEffect(() => {
         setLoading(true);
@@ -76,6 +80,29 @@ export default function ProductDetail() {
                                 </>
                             )}
                         </div>
+
+                        <div className="d-flex gap-2 mb-3">
+                            <Button
+                                size="lg"
+                                className="flex-grow-1"
+                                onClick={() => {
+                                    addToCart(product);
+                                    setAddedToCart(true);
+                                    setTimeout(() => setAddedToCart(false), 2500);
+                                }}
+                                style={{ fontWeight: 600 }}
+                            >
+                                <FiShoppingCart className="me-2" />
+                                Add to Cart
+                            </Button>
+                        </div>
+
+                        {addedToCart && (
+                            <Alert variant="success" className="d-flex align-items-center gap-2 py-2 mb-3" style={{ animation: 'fadeInDown 0.3s ease' }}>
+                                <FiCheck size={18} />
+                                <span>Added to cart successfully! <FaCheckCircle className="ms-1" style={{ color: 'var(--success)' }} /></span>
+                            </Alert>
+                        )}
 
                         <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>{product.description}</p>
 
