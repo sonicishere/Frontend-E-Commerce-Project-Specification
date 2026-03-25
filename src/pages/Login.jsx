@@ -11,6 +11,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
+    const [demoLoading, setDemoLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,6 +30,19 @@ export default function Login() {
             setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDemoLogin = async () => {
+        setError('');
+        setDemoLoading(true);
+        try {
+            await login('emilys', 'emilyspass');
+            navigate('/dashboard');
+        } catch (err) {
+            setError('Demo login failed. Please try again.');
+        } finally {
+            setDemoLoading(false);
         }
     };
 
@@ -84,10 +98,23 @@ export default function Login() {
                     </Button>
                 </div>
 
-                <div className="mt-4 p-3" style={{ background: 'rgba(99,102,241,0.08)', borderRadius: 'var(--radius-md)' }}>
-                    <p className="small text-muted mb-1"><strong>Demo Credentials:</strong></p>
-                    <p className="small mb-0" style={{ color: 'var(--accent-light)' }}>
-                        Username: <code>emilys</code> &nbsp;|&nbsp; Password: <code>emilyspass</code>
+                <div className="mt-4 p-3" style={{ background: 'rgba(99,102,241,0.08)', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
+                    <p className="small text-muted mb-2"><strong>Want to explore the Dashboard?</strong></p>
+                    <Button
+                        variant="outline-secondary"
+                        className="w-100"
+                        onClick={handleDemoLogin}
+                        disabled={demoLoading || loading}
+                    >
+                        {demoLoading ? (
+                            <Spinner animation="border" size="sm" className="me-2" />
+                        ) : (
+                            <FiLogIn className="me-2" />
+                        )}
+                        Try Demo (Admin)
+                    </Button>
+                    <p className="small text-muted mt-2 mb-0">
+                        Logs in as <code>emilys</code> and opens the Dashboard
                     </p>
                 </div>
             </div>
