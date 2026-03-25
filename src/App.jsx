@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import AppNavbar from './components/AppNavbar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
 import DashboardLayout from './components/DashboardLayout';
 
 import Products from './pages/Products';
@@ -38,9 +39,9 @@ export default function App() {
                 <Route
                     path="/dashboard"
                     element={
-                        <ProtectedRoute>
+                        <AdminRoute>
                             <DashboardLayout />
-                        </ProtectedRoute>
+                        </AdminRoute>
                     }
                 >
                     <Route index element={<Dashboard />} />

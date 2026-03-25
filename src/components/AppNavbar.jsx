@@ -5,7 +5,7 @@ import { useCart } from '../context/CartContext';
 import { FiShoppingCart, FiUsers, FiGrid, FiLogOut, FiLogIn, FiUserPlus } from 'react-icons/fi';
 
 export default function AppNavbar() {
-    const { user, isAuthenticated, logout } = useAuth();
+    const { user, isAuthenticated, isAdmin, logout } = useAuth();
     const { totalItems } = useCart();
     const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ export default function AppNavbar() {
                         <Nav.Link as={NavLink} to="/users" className="nav-item-link">
                             <FiUsers className="me-1" /> Users
                         </Nav.Link>
-                        {isAuthenticated && (
+                        {isAdmin && (
                             <Nav.Link as={NavLink} to="/dashboard" className="nav-item-link">
                                 <FiGrid className="me-1" /> Dashboard
                             </Nav.Link>
@@ -60,8 +60,12 @@ export default function AppNavbar() {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className="dropdown-menu-dark">
                                     <Dropdown.Header>{user?.email}</Dropdown.Header>
-                                    <Dropdown.Divider />
-                                    <Dropdown.Item as={Link} to="/dashboard">Dashboard</Dropdown.Item>
+                                    {isAdmin && (
+                                        <>
+                                            <Dropdown.Divider />
+                                            <Dropdown.Item as={Link} to="/dashboard">Dashboard</Dropdown.Item>
+                                        </>
+                                    )}
                                     <Dropdown.Divider />
                                     <Dropdown.Item onClick={handleLogout}>
                                         <FiLogOut className="me-2" /> Logout

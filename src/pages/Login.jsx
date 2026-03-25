@@ -23,8 +23,8 @@ export default function Login() {
 
         setLoading(true);
         try {
-            await login(username, password);
-            navigate('/dashboard');
+            const data = await login(username, password);
+            navigate(data.role === 'admin' ? '/dashboard' : '/');
         } catch (err) {
             setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
         } finally {
